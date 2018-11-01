@@ -1,4 +1,4 @@
-FROM centos:7
+FROM pkeropen3/centos-java7
 
 MAINTAINER Vitahao <pkeropen3@163.com>
 
@@ -6,7 +6,7 @@ WORKDIR /root
 
 # install openssh-server, openjdk and wget
 
-RUN yum update -y && yum install -y openssh-server openjdk-7-jdk wget which
+RUN yum update -y && yum install -y openssh-server wget which
 
 
 # install hadoop 2.7.7
@@ -16,7 +16,7 @@ RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.7/hado
     rm hadoop-2.7.7.tar.gz
 
 # set environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
+#ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.191-2.6.15.4.el7_5.x86_64
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
 
