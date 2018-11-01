@@ -6,7 +6,7 @@ WORKDIR /root
 
 # install openssh-server, openjdk and wget
 
-RUN yum update -y && yum install -y openssh-server wget which
+RUN yum update -y && yum install -y openssh-server wget which openssh-clients expect net-tools
 
 
 # install hadoop 2.7.7
@@ -48,5 +48,6 @@ RUN chmod +x ~/start-hadoop.sh && \
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 
+# 启动sshd服务并且暴露22端口
+EXPOSE 22
 CMD [ "sh", "-c", "service ssh start; bash"]
-

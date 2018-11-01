@@ -23,6 +23,6 @@ echo ""
 echo -e "\nbuild docker hadoop image\n"
 
 # rebuild pkeropen/hadoop image
-sudo docker build -t pkeropen/hadoop:1.0 .
+sudo docker build -t pkeropen3/centos-java7 .
 
 echo ""
