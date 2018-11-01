@@ -1,17 +1,19 @@
-FROM ubuntu:14.04
+FROM centos:7
 
 MAINTAINER Vitahao <pkeropen3@163.com>
 
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
-RUN apt-get update && apt-get install -y openssh-server openjdk-7-jdk wget
 
-# install hadoop 2.7.2
-RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/2.7.7/hadoop-2.7.7.tar.gz && \
-    tar -xzvf hadoop-2.7.2.tar.gz && \
-    mv hadoop-2.7.2 /usr/local/hadoop && \
-    rm hadoop-2.7.2.tar.gz
+RUN yum update -y && yum install -y openssh-server openjdk-7-jdk wget which
+
+
+# install hadoop 2.7.7
+RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.7/hadoop-2.7.7.tar.gz && \
+    tar -xzvf hadoop-2.7.7.tar.gz && \
+    mv hadoop-2.7.7 /usr/local/hadoop && \
+    rm hadoop-2.7.7.tar.gz
 
 # set environment variable
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
