@@ -25,6 +25,7 @@ do
 	echo "start hadoop-slave$i container..."
 	docker run -itd \
 	                --net=hadoop \
+					-p 50010:50010 \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
 	                pkeropen3/hadoop-docker &> /dev/null
