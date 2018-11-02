@@ -10,11 +10,11 @@ RUN yum update -y && yum install -y openssh-server wget which openssh-clients ex
 RUN sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
 
-# install hadoop 2.7.7
-RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.7/hadoop-2.7.7.tar.gz && \
-    tar -xzvf hadoop-2.7.7.tar.gz && \
-    mv hadoop-2.7.7 /usr/local/hadoop && \
-    rm hadoop-2.7.7.tar.gz
+# install hadoop 2.7.3
+RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.3/hadoop-2.7.3.tar.gz && \
+    tar -xzvf hadoop-2.7.3.tar.gz && \
+    mv hadoop-2.7.3 /usr/local/hadoop && \
+    rm hadoop-2.7.3.tar.gz
 
 # set environment variable
 ENV HADOOP_HOME=/usr/local/hadoop 
