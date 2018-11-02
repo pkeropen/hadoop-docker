@@ -12,6 +12,7 @@ docker run -itd \
                 -p 50070:50070 \
                 -p 8088:8088 \
 				-p 9000:9000 \
+				-p 50010:50010 \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 pkeropen3/hadoop-docker &> /dev/null
@@ -25,6 +26,7 @@ do
 	echo "start hadoop-slave$i container..."
 	docker run -itd \
 	                --net=hadoop \
+					-p 50010:50010 \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
 	                pkeropen3/hadoop-docker &> /dev/null
