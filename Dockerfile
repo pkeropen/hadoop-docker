@@ -8,6 +8,9 @@ WORKDIR /root
 
 RUN yum update -y && yum install -y openssh-server wget which openssh-clients expect net-tools
 
+# 安装openssh-server和sudo软件包，并且将sshd的UsePAM参数设置成no
+RUN sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+
 
 # install hadoop 2.7.7
 RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.7/hadoop-2.7.7.tar.gz && \
@@ -21,8 +24,15 @@ ENV HADOOP_HOME=/usr/local/hadoop
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
 
 # ssh without key
-RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+#RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+#    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# 添加测试用户root，密码root，并且将此用户添加到sudoers里
+RUN echo "root:root" | chpasswd
+RUN echo "root   ALL=(ALL)   ALL" >> /etc/sudoers
+# 下面这两句比较特殊，在centos6上必须要有，否则创建出来的容器sshd不能登录
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+
 
 RUN mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
