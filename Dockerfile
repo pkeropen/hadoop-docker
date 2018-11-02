@@ -26,9 +26,7 @@ ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 # ssh without key
 #RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 #    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-# 添加测试用户root，密码root，并且将此用户添加到sudoers里
-RUN echo "root:root" | chpasswd
-RUN echo "root   ALL=(ALL)   ALL" >> /etc/sudoers
+
 # 下面这两句比较特殊，在centos6上必须要有，否则创建出来的容器sshd不能登录
 RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
@@ -59,5 +57,10 @@ RUN chmod +x ~/start-hadoop.sh && \
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 
 # 启动sshd服务并且暴露22端口
+#EXPOSE 22
+#CMD [ "sh", "-c", "service ssh start; bash"]
+
+# 启动sshd服务并且暴露22端口
+RUN mkdir /var/run/sshd
 EXPOSE 22
-CMD [ "sh", "-c", "service ssh start; bash"]
+CMD ["/usr/sbin/sshd", "-D"]
