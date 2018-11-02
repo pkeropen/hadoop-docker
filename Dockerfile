@@ -51,9 +51,9 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
 
 # format namenode
-RUN /usr/local/hadoop/bin/hdfs namenode -format
+RUN yes y | /usr/local/hadoop/bin/hdfs namenode -format
 
 # 启动sshd服务并且暴露22端口
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
