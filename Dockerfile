@@ -6,7 +6,7 @@ WORKDIR /root
 
 # install openssh-server, openjdk and wget
 
-RUN yum update -y && yum install -y openssh-server wget which openssh-clients expect net-tools
+RUN yum update -y && yum install -y openssh-server wget which openssh-clients expect net-tools passwd
 
 # 安装openssh-server和sudo软件包，并且将sshd的UsePAM参数设置成no
 RUN sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
@@ -28,8 +28,8 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 # 下面这两句比较特殊，在centos6上必须要有，否则创建出来的容器sshd不能登录
-RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
-RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ""
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ""
 
 
 RUN mkdir -p ~/hdfs/namenode && \ 
