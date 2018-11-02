@@ -4,8 +4,6 @@ MAINTAINER Vitahao <pkeropen3@163.com>
 
 WORKDIR /root
 
-# install openssh-server, openjdk and wget
-
 RUN yum update -y && yum install -y openssh-server wget which openssh-clients expect net-tools passwd
 
 # 安装openssh-server和sudo软件包，并且将sshd的UsePAM参数设置成no
@@ -19,7 +17,6 @@ RUN wget https://github.com/pkeropen/hadoop-docker/releases/download/v2.7.7/hado
     rm hadoop-2.7.7.tar.gz
 
 # set environment variable
-#ENV JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.191-2.6.15.4.el7_5.x86_64
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
 
@@ -55,10 +52,6 @@ RUN chmod +x ~/start-hadoop.sh && \
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
-
-# 启动sshd服务并且暴露22端口
-#EXPOSE 22
-#CMD [ "sh", "-c", "service ssh start; bash"]
 
 # 启动sshd服务并且暴露22端口
 RUN mkdir /var/run/sshd
