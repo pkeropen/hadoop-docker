@@ -21,9 +21,9 @@ ENV HADOOP_HOME=/usr/local/hadoop
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
 
 # ssh without key
-RUN ssh-keygen -t rsa -f -N "" ~/.ssh/id_rsa -P '' && \
+RUN yes y |ssh-keygen -t rsa -f  ~/.ssh/id_rsa -P '' && \
    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-
+   
 # 下面这两句比较特殊，在centos6上必须要有，否则创建出来的容器sshd不能登录
 RUN ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ""
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ""
