@@ -31,7 +31,7 @@ RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ""
 
 RUN mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs
+    mkdir -p $HADOOP_HOME/logs
 
 COPY config/* /tmp/
 

@@ -14,7 +14,7 @@ docker run -itd \
 				-p 9000:9000 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                pkeropen3/centos-java7 &> /dev/null
+                pkeropen3/hadoop-docker &> /dev/null
 
 
 # start hadoop slave container
@@ -27,7 +27,7 @@ do
 	                --net=hadoop \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
-	                pkeropen3/centos-java7 &> /dev/null
+	                pkeropen3/hadoop-docker &> /dev/null
 	i=$(( $i + 1 ))
 done 
 
